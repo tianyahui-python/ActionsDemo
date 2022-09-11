@@ -25,7 +25,7 @@ jobs:
       - env:
           ISSUE_NUM: ${{ github.event.issue.number }}
           format_issue: ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
-          xx: ${{ format('hello{0}', 200) }}
+          xx: ${{ format('hello{0}', $ISSUE_NUM) }}
         run: |
           echo $ISSUE_NUM
           echo $format_issue
