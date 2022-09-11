@@ -23,13 +23,14 @@ jobs:
       
 
       - env:
-          EVENT_CONTEXT: ${{ github.event.issue.number }}
-        
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          format_issue: format('issue#{0}', $ISSUE_NUM)
         run: |
-          echo $EVENT_CONTEXT
-          
+          echo $ISSUE_NUM
+          echo $format_issue
 
       - name: echo contains true
         if: contains(github.event.issue.labels.*.name, 'bug')
-        run: grep -r '@bvt:issue#1234' ${{ github.workspace }}
+    
+        run: grep -r format('issue#{0}', $ISSUE_NUM) ${{ github.workspace }}
         
