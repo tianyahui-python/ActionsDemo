@@ -24,7 +24,7 @@ jobs:
 
       - env:
           ISSUE_NUM: ${{ github.event.issue.number }}
-          format_issue: ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
+          format_issue: ${{ format('issue#{}', $ISSUE_NUM) }}
         run: |
           echo $ISSUE_NUM
           echo $format_issue
@@ -32,5 +32,5 @@ jobs:
       - name: echo contains true
         if: contains(github.event.issue.labels.*.name, 'bug')
     
-        run: grep -r format('{{Hello {0} {1} {2}!}}', 'Mona', 'the', 'Octocat') ${{ github.workspace }}
+        run: grep -r $format_issue, 'Mona', 'the', 'Octocat') ${{ github.workspace }}
         
