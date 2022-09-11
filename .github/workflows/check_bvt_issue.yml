@@ -23,25 +23,16 @@ jobs:
       
 
       - env:
-          EVENT_CONTEXT: ${{ toJSON(github.event.issue.labels) }}
-          xx: ${{ join(github.event.issue.labels.*.name, ', ')  }}
+          EVENT_CONTEXT: ${{ toJSON(github.event.issue) }}
+        
         run: |
           echo $EVENT_CONTEXT
-          echo $xx
+          
 
       - name: echo contains true
         if: contains(github.event.issue.labels.*.name, 'bug')
         run: grep -r '@bvt:issue#1234' ${{ github.workspace }}
         
         
-      - name: if issue label name
-        if: github.event.issue
-        run: echo if issue label name
-
-      - name: Run a check ci script
-        run: |
-          echo Hello, world!
-      - name: Run a multi-check-ci script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: The job has succeeded
+        if: ${{ success() }}
