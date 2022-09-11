@@ -24,10 +24,12 @@ jobs:
 
       - env:
           ISSUE_NUM: ${{ github.event.issue.number }}
-          format_issue: ${{ format('issue{}', '2') }}
+          format_issue: ${{ format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') }}
+          xx: ${{ format('hello{0}', 200) }}
         run: |
           echo $ISSUE_NUM
           echo $format_issue
+          echo $xx
 
       - name: echo contains true
         if: contains(github.event.issue.labels.*.name, 'bug')
