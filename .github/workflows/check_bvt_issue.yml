@@ -23,7 +23,7 @@ jobs:
       
 
       - env:
-          EVENT_CONTEXT: ${{ github.event.issue }}
+          EVENT_CONTEXT: ${{ github.event.issue.number }}
         
         run: |
           echo $EVENT_CONTEXT
