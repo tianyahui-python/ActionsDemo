@@ -20,11 +20,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: echo ls command
-        run: |
-          ls
-          pwd
+      
 
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event.issue.labels) }}
