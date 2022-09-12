@@ -42,3 +42,14 @@ jobs:
         
       - name: Get color
         run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+        
+        
+  issue-reopen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reopen Issue
+        uses: actions/checkout@v3
+        with:
+          actions: 'open-issue'
+          token: ${{ secrets.TOKEN_ACTION }}
+          issue-number: ${{ github.event.issue.number }}
