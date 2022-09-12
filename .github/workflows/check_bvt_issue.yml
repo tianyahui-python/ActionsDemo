@@ -35,4 +35,12 @@ jobs:
         run: |
           echo 'issue#$ISSUE_NUM'
           grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}
+          
+      - name: reopened issue
+        if: contains(github.event.issue.labels.*.name, 'bug')
+        
+        with:
+          actions: 'open-issue'
+          token: ${{ secrets.TOKEN_ACTION }}
+          issue-number: ${{ github.event.issue.number }}
         
