@@ -24,9 +24,11 @@ jobs:
 
       - env:
           ISSUE_NUM: ${{ github.event.issue.number }}
+          token: ${{ secrets.TOKEN_ACTION }}
       
         run: |
           echo $ISSUE_NUM
+          echo $token
         
 
       - name: echo contains true
