@@ -25,12 +25,10 @@ jobs:
       - name: check the code to see if the issue number is removed
         if: contains(github.event.issue.labels.*.name, 'bug')
         
-        run: |       
-          echo  "issue#$ISSUE_NUM"
+        run: |
+        
           res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test || true`
-          
-          echo "$res"
-          
+        
           if [ -n "$res" ]; then
             echo "::set-output name=check_val::True"
           else
