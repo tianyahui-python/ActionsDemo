@@ -36,13 +36,17 @@ jobs:
         
           res=`grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}/test`
           
-          echo ::set-output name=check_val::$res
+          if [ -n "$res" ]; then
+            echo "::set-output name=check_val::True"
+          else
+            echo "::setoutput name=check_val::False"
+          fi
         
         id: get_check_val
           
           
       - name: Reopen Issue
-        if: ${{ steps.get_check_val.outputs.check_val }}
+        if: ${{ steps.get_check_val.outputs.check_val }} == 'True'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
