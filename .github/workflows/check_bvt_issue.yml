@@ -23,7 +23,7 @@ jobs:
       
       - name: get issue status
         run: |
-          echo ${{ toJSON(github.event.issue) }}
+          echo ${{ github.event.issue.state }}
       
      
       - name: check the code to see if the issue number is removed
