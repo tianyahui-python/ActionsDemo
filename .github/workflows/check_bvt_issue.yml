@@ -40,10 +40,6 @@ jobs:
             
         
         id: get_check_val
-        
-      - name: get check val
-        run: |
-          echo ${{ steps.get_check_val.outputs.check_val }}
           
           
       - name: Reopen Issue
@@ -67,6 +63,6 @@ jobs:
           token: ${{ secrets.ACTION_SECRET }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Hello @${{ github.event.issue.user.login }}. Add some comments.
+            Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
 
         
