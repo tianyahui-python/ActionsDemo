@@ -44,12 +44,15 @@ jobs:
             echo "::set-output name=check_val::False"
           fi
           
-          echo ${{ steps.get_check_val.outputs.check_val }}
         env:
           ISSUE_NUM: ${{ github.event.issue.number }}
             
         
         id: get_check_val
+        
+      - name: get check val
+        run: |
+          echo ${{ steps.get_check_val.outputs.check_val }}
           
           
       - name: Reopen Issue
