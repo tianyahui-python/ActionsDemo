@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Reopen Issue
-        uses: actions/checkout@v3
+        uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
           token: ${{ secrets.ACTION_SECRET }}
