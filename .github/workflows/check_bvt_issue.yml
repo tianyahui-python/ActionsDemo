@@ -57,7 +57,7 @@ jobs:
           
       - name: Reopen Issue
         
-        if: ${{ steps.get_check_val.outputs.check_val }} == 'True'
+        if: ${{ steps.get_check_val.outputs.check_val == 'True' }} 
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
