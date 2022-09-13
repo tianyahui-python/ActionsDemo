@@ -33,7 +33,7 @@ jobs:
         if: contains(github.event.issue.labels.*.name, 'bug')
         
         run: |          
-        
+          echo  "issue#$ISSUE_NUM"
           res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test`
           
           echo "$res"
