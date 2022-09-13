@@ -19,8 +19,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3        
-
+    
+      - env: 
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          uses: actions/checkout@v3 
+      
 
       - name: check the code to see if the issue number is removed
         if: contains(github.event.issue.labels.*.name, 'bug')
@@ -32,8 +35,6 @@ jobs:
           else
             echo "NOT NULL"
           fi
-          
-          env: ISSUE_NUM: ${{ github.event.issue.number }}
           
           
       - name: Reopen Issue
