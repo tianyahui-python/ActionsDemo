@@ -35,7 +35,7 @@ jobs:
         
         run: |
           grep_res=`grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}`
-          echo grep_res
+          echo '_____________     $grep_res'
           if [ ! -n "$grep_res" ]; then
             echo "::set-output name=check_val::False"
           else
