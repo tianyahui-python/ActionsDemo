@@ -34,9 +34,9 @@ jobs:
         if: contains(github.event.issue.labels.*.name, 'bug')
         
         run: |
-          grep_res=`grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}`
-          echo $grep_res + dddd
-          if [ ! -n "$grep_res" ]; then
+          echo ${{ github.workspace }} + 11
+          echo `grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}` + 22
+          if [ ! -n `grep -r 'issue#$ISSUE_NUM' ${{ github.workspace }}` ]; then
             echo "::set-output name=check_val::False"
           else
             echo "::setoutput name=check_val::True"
