@@ -44,6 +44,7 @@ jobs:
             echo "::set-output name=check_val::False"
           fi
           
+          echo ${{ steps.get_check_val.outputs.check_val }}
         env:
           ISSUE_NUM: ${{ github.event.issue.number }}
             
@@ -52,6 +53,7 @@ jobs:
           
           
       - name: Reopen Issue
+        
         if: ${{ steps.get_check_val.outputs.check_val }} == 'True'
         uses: actions-cool/issues-helper@v3
         with:
