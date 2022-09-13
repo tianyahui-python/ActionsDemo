@@ -23,6 +23,8 @@ jobs:
       - env: 
           ISSUE_NUM: ${{ github.event.issue.number }}
           uses: actions/checkout@v3 
+          run: |
+            echo $ISSUE_NUM
       
 
       - name: check the code to see if the issue number is removed
