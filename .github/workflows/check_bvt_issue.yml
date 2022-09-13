@@ -44,8 +44,8 @@ jobs:
             echo "::set-output name=check_val::False"
           fi
           
-          env:
-            ISSUE_NUM: ${{ github.event.issue.number }}
+        env:
+          ISSUE_NUM: ${{ github.event.issue.number }}
             
         
         id: get_check_val
