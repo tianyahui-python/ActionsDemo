@@ -34,7 +34,7 @@ jobs:
         
         run: |       
           echo  "issue#$ISSUE_NUM"
-          res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test`
+          res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test || true`
           
           echo "$res"
           
