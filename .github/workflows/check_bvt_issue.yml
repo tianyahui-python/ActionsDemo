@@ -19,54 +19,46 @@ jobs:
 
     steps:
     
-      - uses: actions/checkout@v3
-      
-      - name: get issue status
+      - name: Reopen Issue
+        if: github.event.issue.user.login != github.event.sender.login && github.event.action == 'closed' && github.event.sender.login != 'yingfeng' && github.event.sender.login != 'aressu1985'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'open-issue'
+          token: ${{ secrets.TOKEN_ACTION }}
+          issue-number: ${{ github.event.issue.number }}
+
+      - name: Check Out
+        if: ${{ github.event.issue.state == 'open' }}
+        uses: actions/checkout@v3
+
+      - name: Check the code to see if the issue number is removed
+        if: contains(github.event.issue.labels.*.name, 'bvt')
+        id: get_check_val
+        env:
+          ISSUE_NUM: ${{ github.event.issue.number }}
         run: |
-          echo ${{ github.event.issue.state }}
-      
-     
-      - name: check the code to see if the issue number is removed
-        if: contains(github.event.issue.labels.*.name, 'bug')
-        
-        run: |
-        
           res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test || true`
-        
+
           if [ -n "$res" ]; then
             echo "::set-output name=check_val::True"
           else
             echo "::set-output name=check_val::False"
           fi
-          
-        env:
-          ISSUE_NUM: ${{ github.event.issue.number }}
-            
-        
-        id: get_check_val
-          
-          
+
       - name: Reopen Issue
-        
-        if: ${{ steps.get_check_val.outputs.check_val == 'True' }} 
-        
+        if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
-      
-          
+
       - name: create-comment
-      
-        if: ${{ steps.get_check_val.outputs.check_val == 'True' }} 
-        
+        if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
-
-        
