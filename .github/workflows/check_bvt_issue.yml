@@ -14,7 +14,44 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  check-bvt-issue:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: CheckOut
+        uses: actions/checkout@v3
+
+      - name: Check the code to see if the issue number is removed
+        if: contains(github.event.issue.labels.*.name, 'bvt')
+        id: get_check_val
+        env:
+          ISSUE_NUM: ${{ github.event.issue.number }}
+        run: |
+          res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test || true`
+          if [ -n "$res" ]; then
+            echo "::set-output name=check_val::True"
+          else
+            echo "::set-output name=check_val::False"
+          fi
+      - name: Reopen Issue
+        if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'open-issue'
+          token: ${{ secrets.TOKEN_ACTION }}
+          issue-number: ${{ github.event.issue.number }}
+
+      - name: create-comment
+        if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          token: ${{ secrets.TOKEN_ACTION }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
   issue-reopen:
+    if : github.event.issue.user.login != github.event.sender.login && github.event.action == 'closed' && github.event.sender.login != 'yingfeng' && github.event.sender.login != 'aressu1985'
     runs-on: ubuntu-latest
     steps:
       - name: Reopen Issue
@@ -22,44 +59,6 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
-
-  check-bvt-issue:
-      if: github.event.action == 'closed'
-      runs-on: ubuntu-latest
-      steps:
-        - name: CheckOut
-          uses: actions/checkout@v3
-
-        - name: Check the code to see if the issue number is removed
-          if: contains(github.event.issue.labels.*.name, 'bvt')
-          id: get_check_val
-          env:
-            ISSUE_NUM: ${{ github.event.issue.number }}
-          run: |
-            res=`grep -r "issue#$ISSUE_NUM" ${{ github.workspace }}/test || true`
-  
-            if [ -n "$res" ]; then
-              echo "::set-output name=check_val::True"
-            else
-              echo "::set-output name=check_val::False"
-            fi
-
-        - name: Reopen Issue
-          if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
-          uses: actions-cool/issues-helper@v3
-          with:
-            actions: 'open-issue'
-            token: ${{ secrets.ACTION_SECRET }}
-            issue-number: ${{ github.event.issue.number }}
-
-        - name: create-comment
-          if: ${{ steps.get_check_val.outputs.check_val == 'True' }}
-          uses: actions-cool/issues-helper@v3
-          with:
-            actions: 'create-comment'
-            token: ${{ secrets.ACTION_SECRET }}
-            issue-number: ${{ github.event.issue.number }}
-            body: |
-              Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
+          
