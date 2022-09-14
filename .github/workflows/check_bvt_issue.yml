@@ -35,7 +35,7 @@ jobs:
             actions: 'get-issue'
             token: ${{ secrets.ACTION_SECRET }}
         - name: check outputs
-          run: echo ${{ steps.getissue.outputs.issue.state }}
+          run: echo ${{ steps.get-issue.outputs.issue-state }}
       
         - name: echo issus state
           run: |
