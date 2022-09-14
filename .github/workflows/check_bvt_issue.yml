@@ -29,6 +29,14 @@ jobs:
       if: github.event.action == 'closed'
       runs-on: ubuntu-latest
       steps:
+        - name: Get Issue
+          uses: actions-cool/issues-helper@v3
+          with:
+            actions: 'get-issue'
+            token: ${{ secrets.ACTION_SECRET }}
+        - name: check outputs
+          run: echo ${{ steps.getissue.outputs.issue-state }}
+      
         - name: echo issus state
           run: |
             echo ${{ github.event.issue.state }}
