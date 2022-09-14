@@ -29,6 +29,10 @@ jobs:
       if: github.event.action == 'closed'
       runs-on: ubuntu-latest
       steps:
+        - name: echo issus state
+          run: |
+            echo ${{ github.event.issue.state }}
+      
         - name: CheckOut
           if: ${{ github.event.issue.state == 'closed' }}
           uses: actions/checkout@v3
