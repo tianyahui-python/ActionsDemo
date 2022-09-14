@@ -28,7 +28,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
 
       - name: CheckOut
-        if: ${{ github.event.issue.state == 'open' }}
+        if: ${{ github.event.issue.state == 'close' }}
         uses: actions/checkout@v3
 
       - name: Check the code to see if the issue number is removed
