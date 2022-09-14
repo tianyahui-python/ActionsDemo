@@ -31,6 +31,7 @@ jobs:
       steps:
         - name: Get Issue
           uses: actions-cool/issues-helper@v3
+          id: get-issue
           with:
             actions: 'get-issue'
             token: ${{ secrets.ACTION_SECRET }}
