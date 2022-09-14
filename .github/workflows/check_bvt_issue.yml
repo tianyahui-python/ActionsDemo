@@ -19,6 +19,12 @@ jobs:
 
     steps:
     
+      - name: echo val
+        run: |
+          echo ${{ github.event.issue.user.login }}
+          echo ${{ github.event.sender.login }}
+          echo ${{ github.event.action }}
+    
       - name: Reopen Issue
         if: github.event.issue.user.login != github.event.sender.login && github.event.action == 'closed' && github.event.sender.login != 'yingfeng' && github.event.sender.login != 'aressu1985'
         uses: actions-cool/issues-helper@v3
