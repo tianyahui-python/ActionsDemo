@@ -17,6 +17,11 @@ jobs:
   issue-reopen:
     runs-on: ubuntu-latest
     steps:
+      - name: set default val
+      - id: get_val
+        run: |
+          echo '::set-output name=default_val::True'
+    
       - name: Reopen Issue
         if: github.event.issue.user.login != github.event.sender.login && github.event.action == 'closed' && github.event.sender.login != 'yingfeng' && github.event.sender.login != 'aressu1985'
         uses: actions-cool/issues-helper@v3
@@ -24,23 +29,19 @@ jobs:
           actions: 'open-issue'
           token: ${{ secrets.ACTION_SECRET }}
           issue-number: ${{ github.event.issue.number }}
+          
+      - name: Override default values
+        run: |
+          echo '::set-output name=default_val::False'
 
   check-bvt-issue:
       if: github.event.action == 'closed'
       runs-on: ubuntu-latest
       steps:
-        - name: Get Issue
-          uses: actions-cool/issues-helper@v3
-          id: get-issue
-          with:
-            actions: 'get-issue'
-            token: ${{ secrets.ACTION_SECRET }}
-        - name: check outputs
-          run: echo ${{ steps.get-issue.outputs.issue-state }}
-      
-        - name: echo issus state
+        - name: Get Default Value
           run: |
-            echo ${{ github.event.issue.state }}
+            echo ${{ steps.get_val.outputs.default_val }}
+          
       
         - name: CheckOut
           if: ${{ github.event.issue.state == 'closed' }}
