@@ -24,7 +24,7 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
-          token: ${{ secrets. }}
+          token: ${{ ACTION_SECRET }}
           issue-number: ${{ github.event.issue.number }}
 
       - name: CheckOut
