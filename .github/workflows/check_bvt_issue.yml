@@ -50,11 +50,16 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
+            
   issue-reopen:
     needs: check-bvt-issue
     if: ${{ github.event.issue.state == 'closed' }}
     runs-on: ubuntu-latest
     steps:
+      - name: echo issue state
+        run: |
+          echo ${{ github.event.issue.state }}
+      
       - name: Reopen Issue
         if: github.event.issue.user.login != github.event.sender.login && github.event.action == 'closed' && github.event.sender.login != 'yingfeng' && github.event.sender.login != 'aressu1985'
         uses: actions-cool/issues-helper@v3
