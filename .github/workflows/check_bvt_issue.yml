@@ -38,7 +38,7 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
 
       - name: create-comment
@@ -46,13 +46,13 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
   issue-reopen:
     needs: check-bvt-issue
-    if: ${{ github.event.issue.state == 'closed'}}
+    if: ${{ github.event.issue.state == 'closed' }}
     runs-on: ubuntu-latest
     steps:
       - name: Reopen Issue
@@ -60,6 +60,5 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'open-issue'
-          token: ${{ secrets.ACTION_SECRET }}
+          token: ${{ secrets.TOKEN_ACTION }}
           issue-number: ${{ github.event.issue.number }}
-          
