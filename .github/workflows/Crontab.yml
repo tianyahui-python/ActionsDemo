@@ -1,0 +1,28 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Crontab CI
+
+on:
+  schedule:
+    - cron: '1 * * * *'
+    
+jobs:
+  check-bvt-code:
+    if: github.event.action == '1 * * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: CheckOut
+        uses: action/checkout@v3
+      
+      - name: Get Issue
+        uses: actions-cool/issues-helper@v3
+        with:
+          id: getissue
+          actions: 'get-issue'
+          token: ${{ secrets.ACTION_SECRET }}
+          
+      - name: Check Outputs
+        run: |
+          echo ${{ steps.getissue.outputs.issue-number }}
+  
+    
