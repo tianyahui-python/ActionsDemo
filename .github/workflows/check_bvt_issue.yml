@@ -8,8 +8,9 @@ on:
   issues:
     types:
       - closed
+    schedule:
+    - cron: 1 * * * *
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -51,6 +52,18 @@ jobs:
           body: |
             Hello @${{ github.event.issue.user.login }}. The bug issue in the BVT test code has not been removed,issues automatically open.
             
+      - name: Get Issue
+        if: github.evnet.schedule == '1 * * * *' 
+        uses: actions-cool/issues-helper@v3
+        id: getissue
+        with:
+          actions: 'get-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check Outputs
+        run: |
+          echo ${{ steps.getissue.outputs.issue-number }}
+          
+            
   issue-reopen:
     if: ${{ always() }}
     needs: check-bvt-issue
@@ -67,3 +80,4 @@ jobs:
           actions: 'open-issue'
           token: ${{ secrets.ACTION_SECRET }}
           issue-number: ${{ github.event.issue.number }}
+    
