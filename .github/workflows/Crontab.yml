@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: '1 * * * *'
     
+  workflow_dispatch:
+  
 jobs:
   check-bvt-code:
     if: github.event.action == '1 * * * *'
