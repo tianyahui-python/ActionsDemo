@@ -19,7 +19,7 @@ jobs:
           
       - name: get output num
         run: |
-          echo ${{ steps.get_num.outputs.issue_name }}
+          echo ${{ steps.get_num.outputs.issue_num }}
     
 
   check-bvt-code:
