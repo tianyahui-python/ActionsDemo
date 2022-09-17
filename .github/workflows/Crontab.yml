@@ -21,6 +21,7 @@ jobs:
           id: getissue
           actions: 'get-issue'
           token: ${{ secrets.ACTION_SECRET }}
+          issue-number: 1
           
       - name: Check Outputs
         run: |
