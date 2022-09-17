@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: CheckOut
-        uses: action/checkout@v3
+        uses: actions/checkout@v3
       
       - name: Get Issue
         uses: actions-cool/issues-helper@v3
