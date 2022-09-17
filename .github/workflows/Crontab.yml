@@ -9,6 +9,19 @@ on:
   workflow_dispatch:
   
 jobs:
+  get-issue-id:
+    runs-on: ubuntu-latest
+    steps:   
+      - name: set output num
+        id: get_num
+        run: |
+          echo ::set-output name=issue_num::[1,2,3]
+          
+      - name: get output num
+        run: |
+          echo ${{ steps.get_num.outputs.issue_name }}
+    
+
   check-bvt-code:
     strategy: 
       matrix:
