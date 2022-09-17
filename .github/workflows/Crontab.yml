@@ -15,7 +15,7 @@ jobs:
       - name: set output num
         id: get_num
         run: |
-          echo ::set-output name=issue_num::123
+          echo ::set-output name=issue_num::[1,2,3]
           
       - name: get output num
         run: |
