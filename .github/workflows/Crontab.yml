@@ -17,6 +17,10 @@ jobs:
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
+      
+      - name: echo num
+        run: |
+          echo ${{ matrix.version }}
         
       - name: Add labels
         uses: actions-cool/issues-helper@v3
