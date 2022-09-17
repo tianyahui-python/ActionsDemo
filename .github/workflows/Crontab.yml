@@ -14,17 +14,18 @@ jobs:
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
-      
-      - name: Get Issue
+        
+      - name: Add labels
         uses: actions-cool/issues-helper@v3
         with:
-          id: getissue
-          actions: 'get-issue'
-          token: ${{ secrets.ACTION_SECRET }}
+          actions: 'add-labels'
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: 1
+          labels: 'question'
           
-      - name: Check Outputs
-        run: |
-          echo ${{ steps.getissue.outputs.issue-labels }}
+      
+    
+          
+     
   
     
