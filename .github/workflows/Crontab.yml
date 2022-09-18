@@ -29,7 +29,7 @@ jobs:
     needs: get-issue-id
     strategy: 
       matrix:
-        version: ${{ needs.job1.outputs.output1 }}
+        version: ${{ needs.get-issue-id.outputs.output1 }}
         
     steps:
       - name: CheckOut
