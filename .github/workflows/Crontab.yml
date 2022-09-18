@@ -11,22 +11,22 @@ on:
 jobs:
   get-issue-id:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.get_num.outputs.issue_num }}
     steps:   
       - name: set output num
         id: get_num
         run: |
           echo ::set-output name=issue_num::[1,2,3]
-          
-      - name: get output num
-        run: |
-          echo ${{ steps.get_num.outputs.issue_num }}
     
 
   check-bvt-code:
+    runs-on: ubuntu-latest
+    needs: get-issue-id
     strategy: 
       matrix:
-        version: [1]
-    runs-on: ubuntu-latest
+        version: ${{ needs.job1.outputs.output1 }}
+        
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
