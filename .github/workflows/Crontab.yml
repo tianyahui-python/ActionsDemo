@@ -18,6 +18,10 @@ jobs:
         id: get_num
         run: |
           echo ::set-output name=issue_num::[1,2,3]
+          
+      - name: echo num
+        run: |
+          ${{ steps.get_num.outputs.issue_num }}
     
 
   check-bvt-code:
