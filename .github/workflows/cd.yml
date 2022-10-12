@@ -1,9 +1,8 @@
 # Define workflow name.
-name: MatrixOne CI
+name: CD
 
 on:
-  pull_request_target:
-    types: [ opened, synchronize, reopened ]
+  pull_request:
     branches: [ main ]
 
   workflow_dispatch:
