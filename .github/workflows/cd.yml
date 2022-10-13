@@ -10,19 +10,22 @@ on:
 
   workflow_dispatch:
   
-concurrency: 
-  group: ${{ github.event.pull_request.head.repo.full_name}}/${{ github.event.pull_request.head.ref }}/${{ github.workflow }}
-  cancel-in-progress: true
 
 jobs:
   bvt-linux-x86:
     runs-on: ubuntu-latest
     name: BVT Test on Ubuntu/x64
     timeout-minutes: 30
-
+    
     steps:
-      - name: echo val
-        run: |
-          echo ${{ github.event.pull_request.head.repo.full_name}}
-          echo {{ github.event.pull_request.head.ref }}
-          echo {{ github.workflow }}
+      - name: checkout head
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '3'
+          repository: matrixone/matrixone
+          ref: 'main'
+      
+      - name: Set up Go
+        uses: ./.gethub/actions/setup_env
+      
+      
