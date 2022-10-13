@@ -59,23 +59,23 @@ jobs:
           cd $GITHUB_WORKSPACE/mo-tester
           ./run.sh -n -g -p $GITHUB_WORKSPACE/head/test/cases 2>&1
 
-#      - name: Check mo-service Status
-#        if: ${{ always() && !cancelled() }}
-#        run: |
-#          if [ "$(ps -ef | grep 'mo-service' | grep -v "grep" | wc -l)" -gt 0 ]; then pkill -9 mo-service; else echo 'current mo-service has already crashed'; exit 1; fi
-#
-#          - name: remove some files
-#            continue-on-error: true
-#            run: |
-#              cd $GITHUB_WORKSPACE
-#              if  [ -d  "./head/mo-service"  ]; then rm -rf ./head/mo-service; fi
-#              rm -rf ./mo-tester/.git
-#              rm -rf ./mo-tester/lib
-#          - uses: actions/upload-artifact@v2
-#            if: ${{ failure() }}
-#            continue-on-error: true
-#            with:
-#              name: linux_x86_ci_reports
-#              path: |
-#                ${{ github.workspace }}
-#              retention-days: 7
+      - name: Check mo-service Status
+        if: ${{ always() && !cancelled() }}
+        run: |
+          if [ "$(ps -ef | grep 'mo-service' | grep -v "grep" | wc -l)" -gt 0 ]; then pkill -9 mo-service; else echo 'current mo-service has already crashed'; exit 1; fi
+
+          - name: remove some files
+            continue-on-error: true
+            run: |
+              cd $GITHUB_WORKSPACE
+              if  [ -d  "./head/mo-service"  ]; then rm -rf ./head/mo-service; fi
+              rm -rf ./mo-tester/.git
+              rm -rf ./mo-tester/lib
+          - uses: actions/upload-artifact@v2
+            if: ${{ failure() }}
+            continue-on-error: true
+            with:
+              name: linux_x86_ci_reports
+              path: |
+                ${{ github.workspace }}
+              retention-days: 7
