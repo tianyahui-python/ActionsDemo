@@ -37,6 +37,10 @@ jobs:
           catalog-ckp-interval = "10000s"
           catalog-unckp-limit = 10000
           flush-interval = "10000s"" >> ./etc/launch-tae-CN-tae-DN/dn.toml
+          
+      - name : echo dn.toml
+        run: |
+          cat ./etc/launch-tae-CN-tae-DN/dn.toml
 
       - name: Start MO
         run: |
