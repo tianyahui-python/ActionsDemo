@@ -4,9 +4,9 @@ name: CD
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "m" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "m" ]
 
   workflow_dispatch:
   
