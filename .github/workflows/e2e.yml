@@ -30,7 +30,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/head && make clean && make debug
           git rev-parse --short HEAD
-          echo "\n[dn.Ckp]
+          echo "[dn.Ckp]
           scanner-interval = "10000s"
           execution-levels = 20000
           execution-interval = "10000s"
