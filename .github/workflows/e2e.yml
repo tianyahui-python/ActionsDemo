@@ -40,6 +40,7 @@ jobs:
           
       - name : echo dn.toml
         run: |
+          cd $GITHUB_WORKSPACE/head
           cat ./etc/launch-tae-CN-tae-DN/dn.toml
 
       - name: Start MO
