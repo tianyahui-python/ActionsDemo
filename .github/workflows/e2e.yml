@@ -1,7 +1,7 @@
 name: MatrixOne e2e CI
 
 on:
-  pull_request:
+  pull_request_target:
     types: [ opened, synchronize, reopened ]
     branches: [ main ]
 
