@@ -1,9 +1,11 @@
 name: MatrixOne e2e CI
 
 on:
-  pull_request_target:
+  pull_request:
     types: [ opened, synchronize, reopened ]
     branches: [ main ]
+  push:
+    branches: [ "main" ]
 
   workflow_dispatch:
 
