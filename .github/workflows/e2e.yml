@@ -69,7 +69,9 @@ jobs:
           locale
           sleep 120s
           cd $GITHUB_WORKSPACE/mo-tester
-          ./run.sh -n -g -p $GITHUB_WORKSPACE/head/test/cases/function/func_string_left.sql,/function/func_string_empty.test 2>&1
+          ./run.sh -n -g -i func_string_left.sql,func_string_empty.test,\
+          func_string_char_length.test,func_string_bin.test,func_math_power.test,\
+          func_math_log.test,func_math_exp.test,datatype.test,subquery.sql,new_database.test 2>&1
 
       - name: Check mo-service Status
         if: ${{ always() && !cancelled() }}
