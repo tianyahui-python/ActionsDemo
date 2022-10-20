@@ -46,6 +46,12 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/head
           ./mo-service -launch ./etc/launch-tae-CN-tae-DN/launch.toml &>mo-service.log &
+          
+      - name: Check Mo
+        run: |
+          sleep 120s
+          if [ "$(ps -ef | grep 'mo-service' | grep -v "grep" | wc -l)" -gt 0 ]; then echo 'Mo start success...'; else echo 'mo start failed' exit 1; fi
+        
       - name: Clone test-tool repository
         uses: actions/checkout@v2
         with:
