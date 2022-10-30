@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on close issue
   issues:
     types:
-      - closed
+      - c
     schedule:
     - cron: 1 * * * *
 
