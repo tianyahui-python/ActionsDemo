@@ -25,14 +25,7 @@ jobs:
 
       - name: Add the project label
         uses: andymckay/labeler@master
-        if: ${{ contains(github.event.action, 'created') || contains(github.event.action, 'moved') }}
         with:
           add-labels: "Project: ${{ fromJSON(env.PROJECT_DATA).name }}"
-
-      - name: Remove the project label
-        uses: andymckay/labeler@master
-        if: ${{ contains(github.event.action, 'deleted') }}
-        with:
-          remove-labels: "Project: ${{ fromJSON(env.PROJECT_DATA).name }}"
 
             
