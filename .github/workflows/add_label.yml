@@ -17,15 +17,9 @@ jobs:
   automate-issues-labels:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch project data
-        run: |
-          echo 'PROJECT_DATA<<EOF' >> $GITHUB_ENV
-          curl --request GET --url '${{ github.event.project_card.project_url }}' --header 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-
       - name: Add the project label
         uses: andymckay/labeler@master
         with:
-          add-labels: "Project: ${{ fromJSON(env.PROJECT_DATA).name }}"
+          add-labels: "Project: Test"
 
             
