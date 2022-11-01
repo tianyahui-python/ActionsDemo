@@ -24,7 +24,7 @@ jobs:
         with:
           project-url: https://github.com/users/tianyahui-python/projects/2
           github-token: ${{ secrets.ACTION_SECRET }}
-          labeled: bug, needs-triage
+          labeled: kind/bug
           label-operator: OR
           
       - name: Issue Add  Milestone
