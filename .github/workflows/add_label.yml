@@ -27,6 +27,9 @@ jobs:
           labeled: bug, needs-triage
           label-operator: OR
           
+      - name: git checkout
+        uses: actions/checkout@v3
+        
       - name: set milestone
         uses: zoispag/action-assign-milestone@v2
         with:
