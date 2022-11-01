@@ -14,12 +14,17 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  automate-issues-labels:
+  add-to-project:
+    name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-      - name: Add the project label
-        uses: andymckay/labeler@master
+      - uses: actions/add-to-project@v0.3.0
         with:
-          add-labels: "Project: Test"
+          # You can target a repository in a different organization
+          # to the issue
+          project-url: https://github.com/users/tianyahui-python/projects/2
+          github-token: ${{ secrets.ACTION_SECRET }}
+          labeled: bug, needs-triage
+          label-operator: OR
 
             
