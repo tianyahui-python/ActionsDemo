@@ -26,5 +26,11 @@ jobs:
           github-token: ${{ secrets.ACTION_SECRET }}
           labeled: bug, needs-triage
           label-operator: OR
+          
+      - name: set milestone
+        uses: zoispag/action-assign-milestone@v2
+        with:
+          repo-token: ${{ secrets.ACTION_SECRET }}
+          milestone: 0.1
 
             
