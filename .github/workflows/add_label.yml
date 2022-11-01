@@ -30,7 +30,7 @@ jobs:
       - name: ass issue to latest milestone
         uses: cgetc/automatically-set-milestone-to-issue@v0.1.2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ACTION_SECRET }}
           version-prefix: "0.1"
 
             
