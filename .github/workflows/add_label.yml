@@ -27,13 +27,10 @@ jobs:
           labeled: bug, needs-triage
           label-operator: OR
           
-      - name: git checkout
-        uses: actions/checkout@v3
-        
-      - name: set milestone
-        uses: zoispag/action-assign-milestone@v2
+      - name: ass issue to latest milestone
+        uses: cgetc/automatically-set-milestone-to-issue@v0.1.2
         with:
-          repo-token: ${{ secrets.ACTION_SECRET }}
-          milestone: 0.1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-prefix: "0.1"
 
             
