@@ -1,0 +1,17 @@
+# Define workflow name.
+name: test cd 
+
+on:
+  workflow_dispatch:
+  
+
+jobs:
+  bvt-linux-x86:
+    runs-on: 128-tianyahui-repo
+    
+    steps:
+      - name: checkout head
+        runs: |
+          echo this is a test cd yaml
+        
+      
