@@ -11,7 +11,7 @@ jobs:
     
     steps:
       - name: checkout head
-        runs: |
+        run: |
           echo this is a test cd yaml
         
       
