@@ -35,7 +35,7 @@ jobs:
       - name: Start MO
         run: |
           cd $GITHUB_WORKSPACE/head
-          ./mo-service -launch ./etc/launch-tae-CN-tae-DN/launch.toml  &>mo-service.log &
+          ./mo-service -launch ./etc/launch-tae-logservice/launch.toml  &>mo-service.log &
           
       - name: Clone mo-tester repository
         uses: actions/checkout@v2
