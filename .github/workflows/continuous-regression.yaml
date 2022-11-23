@@ -15,7 +15,7 @@ jobs:
       - name: checkout head
         uses: actions/checkout@v2
         with:
-          path: ./head
+          path: /data1/
           repository: matrixorigin/matrixone
           ref: main
       
