@@ -35,7 +35,7 @@ jobs:
       - name: Start MO
         run: |
           cd $GITHUB_WORKSPACE/head
-          ./mo-service -launch ./etc/launch-tae-logservice/launch.toml  &>mo-service.log &
+          ./mo-service -launch ./etc/launch-tae-CN-tae-DN/launch.toml &>mo-service.log &
           
       - name: Clone mo-tester repository
         uses: actions/checkout@v2
@@ -62,12 +62,12 @@ jobs:
           locale
           sleep 10s
           cd $GITHUB_WORKSPACE/mo-tester
-          ./run.sh -n -g -p $GITHUB_WORKSPACE/head/test/cases 2>&1
+          ./run.sh -n -g -p $GITHUB_WORKSPACE/head/test/distributed 2>&1
           
       - name: Check mo-service Status
         if: ${{ always() && !cancelled() }}
         run: |
-          if [ "$(ps -ef | grep 'mo-service' | grep -v "grep" | wc -l)" -gt 0 ]; then pkill -9 mo-service; else echo 'current mo-service has already crashed'; exit 1; fi
+          if [ "$(ps -ef | grep 'mo-service' | grep -v "grep" | wc -l)" -gt 0 ]; then sudo pkill -9 mo-service; else echo 'current mo-service has already crashed'; exit 1; fi
           
       - name: remove some files
         continue-on-error: true
