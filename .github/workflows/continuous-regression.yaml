@@ -25,4 +25,8 @@ jobs:
       - name: Set up Go
         run: |
           echo `go version`
+          
+      - name: echo workspace
+        run: |
+          echo $GITHUB_WORKSPACE
         
