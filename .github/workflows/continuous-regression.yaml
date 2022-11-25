@@ -16,7 +16,7 @@ jobs:
         with:
           path: ./head
           repository: matrixorigin/matrixone
-          ref: main
+          ref: 0.6.0
 
       - name: echo go version
         run: |
