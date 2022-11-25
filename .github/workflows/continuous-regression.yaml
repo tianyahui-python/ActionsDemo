@@ -47,14 +47,14 @@ jobs:
         run: |
           echo `java -version`
           
-      - name: Start BVT Test
-        id: bvt_on_pr_version
-        run: |
-          export LC_ALL="C.UTF-8"
-          locale
-          sleep 15s
-          cd $GITHUB_WORKSPACE/mo-tester
-          ./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
+      #- name: Start BVT Test
+       # id: bvt_on_pr_version
+        #run: |
+         # export LC_ALL="C.UTF-8"
+          #locale
+          #sleep 15s
+          #cd $GITHUB_WORKSPACE/mo-tester
+          #./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
           
       - name: Start TPCH Test
         run: |
