@@ -16,7 +16,7 @@ jobs:
         with:
           path: ./head
           repository: matrixorigin/matrixone
-          ref: 0.6.0
+          ref: main
 
       - name: echo go version
         run: |
@@ -47,16 +47,17 @@ jobs:
         run: |
           echo `java -version`
           
-      #- name: Start BVT Test
-       # id: bvt_on_pr_version
-        #run: |
-         # export LC_ALL="C.UTF-8"
-          #locale
-          #sleep 15s
-          #cd $GITHUB_WORKSPACE/mo-tester
-          #./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
+      - name: Start BVT Test
+        id: bvt_on_pr_version
+        run: |
+          export LC_ALL="C.UTF-8"
+          locale
+          sleep 15s
+          cd $GITHUB_WORKSPACE/mo-tester
+          ./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
           
       - name: Start TPCH Test
+        if: ${{ always() && !cancelled() }}
         run: |
           export LC_ALL="C.UTF-8"
           locale
@@ -67,16 +68,13 @@ jobs:
           ./run.sh -q all -s 0.1
           
       - name: Start LOAD DATA Test
+        if: ${{ always() && !cancelled() }}
         id: loaddata_on_pr_version
         run: |
           export LC_ALL="C.UTF-8"
           locale
           sleep 60s
           cd /data/mo-load-data
-          ./load.sh -c cases/20_columns/table_20_columns_1w.yml
-          ./load.sh -c cases/20_columns/table_20_columns_10w.yml
-          ./load.sh -c cases/20_columns/table_20_columns_100w.yml
-          ./load.sh -c cases/20_columns/table_20_columns_1000w.yml
           ./load.sh -c cases/20_columns/table_20_columns_1y.yml
           
       - name: Check mo-service Status
