@@ -66,6 +66,16 @@ jobs:
           ./run.sh -l -s 0.1
           ./run.sh -q all -s 0.1
           
+      - name: Start TPCC Test
+        if: ${{ always() && !cancelled() }}
+        run: |
+          export LC_ALL="C.UTF-8"
+          locale
+          cd /data/mo-tpcc
+          ./runSQL.sh props.mo tableCreates
+          ./runLoader.sh props.mo warehouse 1
+          ./runBenchmark.sh props.mo
+          
       - name: Start LOAD DATA Test
         if: ${{ always() && !cancelled() }}
         id: loaddata_on_pr_version
