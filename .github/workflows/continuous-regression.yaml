@@ -76,6 +76,17 @@ jobs:
           sleep 60s
           cd /data/mo-load-data
           ./load.sh -c cases/20_columns/table_20_columns_1y.yml
+      
+      - name: Start SYSBENCH Test
+        if: ${{ always() && !cancelled() }}
+        id: sysbench_on_pr_version
+        run: |
+          export LC_ALL="C.UTF-8"
+          locale
+          sleep 60s
+          cd $GITHUB_WORKSPACE/mo-load
+          ./start.sh -m SYSBENCH -n 10 -s 100 
+          ./start.sh -d 1 -t 1 -c cases/sysbench/point_select_10_100  
           
       - name: Check mo-service Status
         if: ${{ always() && !cancelled() }}
