@@ -61,7 +61,6 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          sleep 60s
           cd /data/mo-tpch
           ./run.sh -c -s 0.1 
           ./run.sh -l -s 0.1
@@ -73,7 +72,6 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          sleep 60s
           cd /data/mo-load-data
           ./load.sh -c cases/20_columns/table_20_columns_1y.yml
       
@@ -83,7 +81,6 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          sleep 60s
           cd $GITHUB_WORKSPACE/mo-load
           ./start.sh -m SYSBENCH -n 10 -s 100 
           ./start.sh -d 1 -t 1 -c cases/sysbench/point_select_10_100  
