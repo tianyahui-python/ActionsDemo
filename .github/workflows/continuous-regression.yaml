@@ -81,7 +81,7 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          cd $GITHUB_WORKSPACE/mo-load
+          cd /data/mo-load
           ./start.sh -m SYSBENCH -n 10 -s 100 
           ./start.sh -d 1 -t 1 -c cases/sysbench/point_select_10_100  
           
