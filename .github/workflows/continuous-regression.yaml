@@ -45,6 +45,8 @@ jobs:
           
       - name: echo java version
         run: |
+          locale
+          sleep 20s
           echo `java -version`
           
       #- name: Start BVT Test
