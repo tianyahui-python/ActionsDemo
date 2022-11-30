@@ -49,14 +49,14 @@ jobs:
           sleep 20s
           echo `java -version`
           
-      - name: Start BVT Test
-        id: bvt_on_pr_version
-        run: |
-          export LC_ALL="C.UTF-8"
-          locale
-          sleep 15s
-          cd $GITHUB_WORKSPACE/mo-tester
-          ./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
+      #- name: Start BVT Test
+       # id: bvt_on_pr_version
+        #run: |
+         # export LC_ALL="C.UTF-8"
+          #locale
+          #sleep 15s
+          #cd $GITHUB_WORKSPACE/mo-tester
+          #./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
       
       - name: Start LOAD DATA Test
         if: ${{ always() && !cancelled() }}
@@ -65,7 +65,6 @@ jobs:
           export LC_ALL="C.UTF-8"
           locale
           cd /data/mo-load-data
-          ./load.sh -c cases/20_columns/table_20_columns_1y.yml
           ./loop.sh
           
       #- name: Start TPCH Test
@@ -85,8 +84,6 @@ jobs:
           export LC_ALL="C.UTF-8"
           locale
           cd /data/mo-tpcc
-          ./runSQL.sh props.mo tableCreates
-          ./runLoader.sh props.mo warehouse 1
           ./runBenchmark.sh props.mo
           
       - name: Start SYSBENCH Test
