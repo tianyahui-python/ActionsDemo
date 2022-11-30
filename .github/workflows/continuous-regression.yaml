@@ -92,6 +92,7 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
+          cd /data/mo-load
           ./start.sh -m SYSBENCH -n 10 -s 10000
           ./start.sh -c cases/sysbench/point_select_10_100
 
