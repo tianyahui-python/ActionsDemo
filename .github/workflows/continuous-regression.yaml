@@ -49,36 +49,15 @@ jobs:
           sleep 20s
           echo `java -version`
           
-      #- name: Start BVT Test
-       # id: bvt_on_pr_version
-        #run: |
-         # export LC_ALL="C.UTF-8"
-          #locale
-          #sleep 15s
-          #cd $GITHUB_WORKSPACE/mo-tester
-          #./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
-          
-      - name: Start TPCH Test
-        if: ${{ always() && !cancelled() }}
+      - name: Start BVT Test
+        id: bvt_on_pr_version
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          sleep 10s
-          cd /data/mo-tpch
-          ./run.sh -c -s 0.1 
-          ./run.sh -l -s 0.1
-          ./run.sh -q all -s 0.1
-          
-      #- name: Start TPCC Test
-        #if: ${{ always() && !cancelled() }}
-        #run: |
-         # export LC_ALL="C.UTF-8"
-          #locale
-          #cd /data/mo-tpcc
-          #./runSQL.sh props.mo tableCreates
-          #./runLoader.sh props.mo warehouse 1
-          #./runBenchmark.sh props.mo
-          
+          sleep 15s
+          cd $GITHUB_WORKSPACE/mo-tester
+          ./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
+      
       - name: Start LOAD DATA Test
         if: ${{ always() && !cancelled() }}
         id: loaddata_on_pr_version
@@ -87,7 +66,29 @@ jobs:
           locale
           cd /data/mo-load-data
           ./load.sh -c cases/20_columns/table_20_columns_1y.yml
-      
+          ./loop.sh
+          
+      #- name: Start TPCH Test
+       # if: ${{ always() && !cancelled() }}
+        #run: |
+         # export LC_ALL="C.UTF-8"
+          #locale
+          #sleep 10s
+          #cd /data/mo-tpch
+          #./run.sh -c -s 0.1 
+          #./run.sh -l -s 0.1
+          #./run.sh -q all -s 0.1
+          
+      - name: Start TPCC Test
+        if: ${{ always() && !cancelled() }}
+        run: |
+          export LC_ALL="C.UTF-8"
+          locale
+          cd /data/mo-tpcc
+          ./runSQL.sh props.mo tableCreates
+          ./runLoader.sh props.mo warehouse 1
+          ./runBenchmark.sh props.mo
+          
       - name: Start SYSBENCH Test
         if: ${{ always() && !cancelled() }}
         id: sysbench_on_pr_version
@@ -97,6 +98,12 @@ jobs:
           cd /data/mo-load
           ./start.sh -m SYSBENCH -n 10 -s 100 
           ./start.sh -d 1 -t 1 -c cases/sysbench/point_select_10_100  
+          
+      - name: Start Test JDBC Jar 
+        if: ${{ always() && !cancelled() }}
+        run: |
+          cd /data
+          java -jar mo-test-jdbc.jar 
           
       - name: Check mo-service Status
         if: ${{ always() && !cancelled() }}
