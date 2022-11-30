@@ -11,12 +11,12 @@ jobs:
     name: Integration Test on 128 server
     
     steps:
-      - name: checkout matrixone
-        uses: actions/checkout@v2
-        with:
-          path: ./head
-          repository: matrixorigin/matrixone
-          ref: main
+      #- name: checkout matrixone
+       # uses: actions/checkout@v2
+        #with:
+         # path: ./head
+          #repository: matrixorigin/matrixone
+          #ref: main
 
       - name: echo go version
         run: |
@@ -26,22 +26,22 @@ jobs:
         run: |
           echo $GITHUB_WORKSPACE
         
-      - name: Build MatrixOne
-        run: |
-          cd $GITHUB_WORKSPACE/head && make clean && make debug
-          git rev-parse --short HEAD
+      #- name: Build MatrixOne
+       # run: |
+        #  cd $GITHUB_WORKSPACE/head && make clean && make debug
+         # git rev-parse --short HEAD
           
-      - name: Start MO
-        run: |
-          cd $GITHUB_WORKSPACE/head
-          ./mo-service -launch ./etc/launch-tae-CN-tae-DN/launch.toml &>mo-service.log &
+      #- name: Start MO
+       # run: |
+        #  cd $GITHUB_WORKSPACE/head
+         # ./mo-service -launch ./etc/launch-tae-CN-tae-DN/launch.toml &>mo-service.log &
           
-      - name: Clone mo-tester repository
-        uses: actions/checkout@v2
-        with:
-          repository: matrixorigin/mo-tester
-          path: ./mo-tester
-          ref: main
+      #- name: Clone mo-tester repository
+       # uses: actions/checkout@v2
+        #with:
+         # repository: matrixorigin/mo-tester
+          #path: ./mo-tester
+          #ref: main
           
       - name: echo java version
         run: |
@@ -58,14 +58,14 @@ jobs:
           #cd $GITHUB_WORKSPACE/mo-tester
           #./run.sh -n -g -p  $GITHUB_WORKSPACE/head/test/distributed/cases 2>&1 
       
-      - name: Start LOAD DATA Test
-        if: ${{ always() && !cancelled() }}
-        id: loaddata_on_pr_version
-        run: |
-          export LC_ALL="C.UTF-8"
-          locale
-          cd /data/mo-load-data
-          ./loop.sh
+      #- name: Start LOAD DATA Test
+       # if: ${{ always() && !cancelled() }}
+        #id: loaddata_on_pr_version
+        #run: |
+         # export LC_ALL="C.UTF-8"
+          #locale
+          #cd /data/mo-load-data
+          #./loop.sh
           
       #- name: Start TPCH Test
        # if: ${{ always() && !cancelled() }}
@@ -92,8 +92,9 @@ jobs:
         run: |
           export LC_ALL="C.UTF-8"
           locale
-          sysbench --mysql-host=127.0.0.1 --mysql-port=6001 --mysql-user=dump --mysql-password=111 oltp_common.lua --tables=10 --table_size=100000 --threads=1 --time=30 --report-interval=10 --create_secondary=off --auto_inc=off prepare 
-          sysbench --mysql-host=127.0.0.1 --mysql-port=6001 --mysql-user=dump --mysql-password=111 --db-ps-mode=disable oltp_point_select.lua --tables=10 --table_size=10000 --threads=10 --time=30 --report-interval=10 --create_secondary=off --auto_inc=off --skip_trx=on --range_selects=off --point_selects=1 run
+          ./start.sh -m SYSBENCH -n 10 -s 10000
+          ./start.sh -c cases/sysbench/point_select_10_100
+
           
       - name: Start Test JDBC Jar 
         if: ${{ always() && !cancelled() }}
