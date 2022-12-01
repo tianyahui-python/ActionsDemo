@@ -33,7 +33,7 @@ jobs:
         with:
           actions: 'add-labels'
           token: ${{ secrets.ACTION_SECRET }}
-          issue-number: 1
+          issue-number: ${{ steps.prep.outputs.tags }}
           labels: 'bug'
       
       #- name: Issue Add Projects
