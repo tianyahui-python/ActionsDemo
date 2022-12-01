@@ -18,6 +18,16 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
+      - name: prepare
+        run: |
+          TAGS="1,2,3"
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+      
+      - name: loop echo
+        run: |
+          echo 'xxx'
+          tags: ${{ steps.prep.outputs.tags }}
+      
       - name: Add labels
         uses: actions-cool/issues-helper@v3
         with:
