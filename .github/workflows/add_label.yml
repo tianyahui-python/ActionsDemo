@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: prepare
+        id: prep
         run: |
           TAGS="1,2,3"
           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
