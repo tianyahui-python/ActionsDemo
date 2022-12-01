@@ -23,17 +23,17 @@ jobs:
         with:
           actions: 'add-labels'
           token: ${{ secrets.ACTION_SECRET }}
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: 1
           labels: 'bug'
       
-      - name: Issue Add Projects
-        if: contains(github.event.issue.labels.*.name, 'kind/bug') 
-        uses: actions/add-to-project@v0.3.0
-        with:
-          project-url: https://github.com/users/tianyahui-python/projects/2
-          github-token: ${{ secrets.ACTION_SECRET }}
-          labeled: kind/bug
-          label-operator: OR
+      #- name: Issue Add Projects
+       # if: contains(github.event.issue.labels.*.name, 'kind/bug') 
+        #uses: actions/add-to-project@v0.3.0
+        #with:
+         # project-url: https://github.com/users/tianyahui-python/projects/2
+          #github-token: ${{ secrets.ACTION_SECRET }}
+          #labeled: kind/bug
+          #label-operator: OR
           
 #       - name: Issue Add  Milestone
 #         if: contains(github.event.issue.labels.*.name, 'kind/bug') 
