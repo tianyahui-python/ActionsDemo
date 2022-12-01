@@ -25,9 +25,8 @@ jobs:
       
       - name: loop echo
         run: |
-          echo 'xxx'
-          tags: ${{ steps.prep.outputs.tags }}
-      
+          echo tags: ${{ steps.prep.outputs.tags }}
+          
       - name: Add labels
         uses: actions-cool/issues-helper@v3
         with:
