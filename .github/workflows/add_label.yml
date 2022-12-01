@@ -18,9 +18,6 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-      - name: CheckOut
-        uses: actions/checkout@v3
-          
       - name: Add labels
         uses: actions-cool/issues-helper@v3
         with:
