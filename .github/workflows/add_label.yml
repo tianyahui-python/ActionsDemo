@@ -11,6 +11,8 @@ jobs:
   prepare_job:
     runs-on: ubuntu-latest
     name: prepare job
+    outputs: 
+      output1: ${{ steps.prep.outputs.matrix_list }}
     steps:
       - name: prepare
         id: prep
@@ -20,6 +22,7 @@ jobs:
           matrix_list=`(echo "[${second_array[*]}]")`
           echo "matrix_list=${matrix_list}"
           echo "matrix_list=${matrix_list}" >> $GITHUB_OUTPUT
+  
           
   
   add-to-project:
@@ -28,7 +31,8 @@ jobs:
     needs: prepare_job
     strategy:
       matrix:
-        issue_num: ${{ needs.prepare_job.steps.prep.outputs.matrix_list }}
+        issue_num: 
+          - ${{needs.prepare_job.outputs.output1}}
     steps:
       - name: Add labels
         uses: actions-cool/issues-helper@v3
