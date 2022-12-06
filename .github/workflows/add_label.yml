@@ -9,22 +9,26 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   prepare_job:
-    name: prepare job
     runs-on: ubuntu-latest
+    name: prepare job
     steps:
       - name: prepare
         id: prep
         run: |
-          TAGS="1"
-          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
-      
+          services_arrary=(1,2,3)
+          for num in ${services_arrary[@]};do second_array+=("${num}");done
+          matrix_list=`(echo "[${second_array[*]}]")`
+          echo "matrix_list=${matrix_list}"
+          echo "matrix_list=${matrix_list}" >> $GITHUB_OUTPUT
+          
   
   add-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
+    needs: prepare_job
     strategy:
       matrix:
-        issue_num: [1,2]
+        issue_num: ${{ needs.prepare_job.steps.prep.outputs.matrix_list }}
     steps:
       - name: Add labels
         uses: actions-cool/issues-helper@v3
