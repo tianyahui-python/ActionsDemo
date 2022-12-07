@@ -22,8 +22,11 @@ jobs:
           matrix_list=`(echo "[${second_array[*]}]")`
           echo "matrix_list=${matrix_list}"
           echo "matrix_list=${matrix_list}" >> $GITHUB_OUTPUT
-  
           
+      - name: echo matrix list
+        run: |
+          echo ${{ steps.prep.outputs.matrix_list }}
+            
   
   add-to-project:
     name: Add issue to project
@@ -31,8 +34,7 @@ jobs:
     needs: prepare_job
     strategy:
       matrix:
-        issue_num: 
-          - ${{needs.prepare_job.outputs.output1}}
+        issue_num: ${{ needs.prepare_job.outputs.output1 }}
     steps:
       - name: Add labels
         uses: actions-cool/issues-helper@v3
