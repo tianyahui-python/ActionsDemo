@@ -25,7 +25,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/head 
           commit_id=$(git rev-parse --short HEAD)
-          echo "commit_id=$(commit_id)" >> $GITHUB_ENV
+          echo "commit_id=$commit_id" >> $GITHUB_ENV
       
       - name: Use the value
         run: |
