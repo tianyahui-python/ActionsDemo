@@ -1,0 +1,34 @@
+# Define workflow name.
+name: test cd 
+
+on:
+  workflow_dispatch:
+  
+
+jobs:
+  bvt-linux-x86:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout head
+        run: |
+          echo this is a test cd yaml
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: ./head
+          repository: tianyahui/ActionsDemo
+          ref: main
+          
+      - name: set commit value
+        run: |
+          cd $GITHUB_WORKSPACE/head 
+          commit_id=$(git rev-parse --short HEAD)
+          echo "commit_id=$(commit_id)" >> $GITHUB_ENV
+      
+      - name: Use the value
+        run: |
+          echo "${{ env.commit_id }}"
+        
+      
