@@ -15,7 +15,7 @@ jobs:
           echo this is a test cd yaml
           
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ./head
           repository: tianyahui/ActionsDemo
