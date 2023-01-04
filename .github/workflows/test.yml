@@ -30,5 +30,6 @@ jobs:
       - name: Use the value
         run: |
           echo "${{ env.commit_id }}"
+          echo ${{ github.id }}
         
       
